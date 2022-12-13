@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Math Game</title>
+	</head>
+	<style>
+	.porblem{
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgb(0 0 0);
+    margin: 10px;
+	padding: 0px 30px
+
+}
+	#problems{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+	}
+	
+	h1{
+	font-size:20px;
+	margin: 4px 4px
+	}
+	.expanded{
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgb(0 0 0);
+    margin: 10px;
+	padding: 0px 30px
+	}
+	
+	
+	</style>
+	
+	<body>
+	 <div>
+		<label for="sum">choose</lable>
+			<select name="num1" id="opration">
+				<option value="Add">Add</option>
+				<option value="Sub">Sub</option>
+				<option value="Multi">Multi</option>
+				<option value="Divide">Divide</option>
+		</select>
+	 </div>
+	 <div>
+	 <label for="number">choose</label>
+		<select name="" id="range">
+			<option value="9">1 To 9</option>
+			<option value="19">1 To 19</option>
+			<option value="29">1 To 29</option>
+			<option value="39">1 To 39</option>
+			<option value="49">1 To 49</option>
+		</select>
+	 </div>
+	 <button id="start" onclick=answer()>Start</button>
+	 <button id="Calculate" onclick=stage2opration()>Calculate</button>
+	 <div id="problems"> </div>
+	 
+	 
+	<script>
+	 var startbutton = document.getElementById("start");
+	  var problems=document.getElementById("problems");
+		var CalculatEle=document.getElementById("Calculate")	;
+			 function generaternumber(max){
+			  return parseInt(Math.random() *max)
+			  
+			 }
+			 
+			
+			           function texttosymbol(text){
+						switch (text){
+						case 'Add' :
+						return '+'
+						break;
+						
+						case 'Sub' :
+						return '-'
+						break ;
+						
+						case 'Multi' :
+						return '*'
+						break;
+						
+						default :
+						return '&'
+						break;
+						}
+					   }
+					    function restprolems(){
+					     problems.innerHTML= "";
+					   }
+              function updatenumber(number1, number2, opration){
+			   let problemEle=document.createElement("div");
+				problemEle.setAttribute('class', 'porblem' );
+					
+						
+				let number1Ele = document.createElement("h1");
+				number1Ele .setAttribute('class', 'number1' );   
+					number1Ele.innerText = number1;
+				let oprationEle = document.createElement("h1");
+			          oprationEle  .setAttribute('class', 'oprationEle ' );   
+					oprationEle.innerText = texttosymbol(opration);
+				
+				let number2Ele = document.createElement("h1");
+                 number2Ele  .setAttribute('class', 'number2Ele' );   
+				number2Ele.innerText = number2;
+					
+				let inputEle = document.createElement("h3");
+					inputEle.setAttribute = ('class', 'answ');
+					inputEle.setAttribute = ('type', 'text');
+					
+					problemEle.append(number1Ele)
+					problemEle.append(oprationEle)
+					problemEle.append(number2Ele)
+					problemEle.append(inputEle )
+					problems.append(problemEle)
+			  }
+						
+						
+						 function answer(){
+						 var opration=document.getElementById("opration"),
+                        	 range=document.getElementById("range"),
+						    opration = opration.value,
+						    range = parseInt(range.value),
+						    random1, random2;
+						  
+						   if(opration !== 'Divide'){
+						    restprolems();
+							for(var i=1;i<=16;i++){
+							  random1=generaternumber(range),
+							   random2=generaternumber(range);
+							  updatenumber(random1, random2, opration)
+							}
+						   }
+						   }
+						   
+						   function stage2opration(){
+						   
+						   var problemElements= document.getElementsByClassName("porblem");
+						   number1Ele ,  oprationEle  ,  number2Ele ,  problemEle ,  number1Value , number2Value , expectedAns , operationType , actualAnswerEle , actualEle;
+						   
+						   for (i=0; i<=problemElements.length; i++){
+						   problemEle = problemElements.[i];
+						   
+						   
+						    oprationEle =  problemEle.getElementsByClassName("opration")[0];
+							operationType = operationEle.innerText;
+							
+							number1Ele = docunment.getElementsByClassName('number1')[0];
+							number1Value =parseInt(number1Ele.innerText);
+							
+							number2Ele = docunment.getElementsByClassName('number1')[0];
+							number2Value =parseInt(number2Ele.innerText);
+							
+							if(operationType == '+'){
+							expectedAns = number1Value + number2Value;
+							
+							else if(operationType == '-'){
+							expectedAns = number1Value - number2Value;
+							}
+							
+							else if(operationType == '*'){
+							expectedAns = number1Value * number2Value;
+							}
+							else(operationType == '/'){
+							expectedAns = number1Value / number2Value;
+							}
+							
+							actualAnswerEle = document.getElementsByClassName('answ');
+							actualEle = parseInt(actualAnswerEle.value) ;
+							 
+							 if(expectedAns == actualEle ){
+							   mark++
+						
+							 }
+							
+							}
+						   }
+						   alert ("Your mark is" +mark) 
+						   }
+						   
+						   
+						   
+	</script>
+	</body>
